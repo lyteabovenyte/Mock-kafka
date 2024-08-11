@@ -12,7 +12,7 @@ var (
 )
 
 const (
-	lenWidth = 8
+	lenWidth = 8 // a placeholder to determine how many bytes is this specific log.
 )
 
 // store struct is a simple wrapper around a file
@@ -53,7 +53,7 @@ func (s *store) Append(p []byte) (n uint64, pos uint64, err error) {
 	}
 	w += lenWidth
 	s.size = uint64(w)
-	return uint64(w), pos, nil
+	return uint64(w), pos, nil // returns how many bytes we just wrote, the position, and nil error
 }
 
 // Read returns the record stored at the given position.
@@ -66,7 +66,7 @@ func (s *store) Read(pos uint64) ([]byte, error) {
 		return nil, err
 	}
 	b := make([]byte, enc.Uint64(size))
-	_, err = s.File.ReadAt(b, int64(pos+lenWidth))
+	_, err = s.File.ReadAt(b, int64(pos+lenWidth)) // the actual log is at pos+lenWidth position.
 	if err != nil {
 		return nil, err
 	}
