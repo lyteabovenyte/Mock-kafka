@@ -14,3 +14,5 @@
 - gRPC Services:
     - using bidirectional streaming APIs on the client and server side to stream the content between them.
     - using [status](https://godoc.org/google.golang.org/grpc/status), [codes](https://godoc.org/google.golang.org/grpc/codes) and [errdetails](https://godoc.org/google.golang.org/genproto/googleapis/rpc/errdetials) packages to customize error messages between client and server.
+    - Dependency Inversion using Interfaces. (DIP principle). --> (wanna know more?)[https://medium.com/@sumit-s/the-dependency-inversion-principle-dip-in-golang-fb0bdc503972]
+    - 
