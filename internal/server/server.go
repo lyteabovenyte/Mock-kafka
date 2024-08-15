@@ -74,7 +74,7 @@ func (s *grpcServer) ConsumeStream(
 			switch err.(type) {
 			case nil:
 			case api.ErrOffsetOutOfRange:
-				continue
+				continue // need to wait until a message being produce to the log, to consume it.
 			default:
 				return err
 			}
