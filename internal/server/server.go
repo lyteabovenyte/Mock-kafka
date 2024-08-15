@@ -4,6 +4,7 @@ import (
 	"context"
 
 	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	"google.golang.org/grpc"
 )
 
 type Config struct {
@@ -12,6 +13,17 @@ type Config struct {
 
 // TODO!
 var _ api.LogServer = (*grpcServer)(nil)
+
+// NewGRPCServer provides the users a way to instantiate out service.
+func NewGRPCServer(config *Config) (*grpc.Server, error) {
+	gsrv := grpc.NewServer()
+	srv, err := newgrpcServer(config)
+	if err != nil {
+		return nil, err
+	}
+	api.RegisterLogServer(gsrv, srv)
+	return gsrv, nil
+}
 
 type grpcServer struct {
 	api.UnimplementedLogServer
@@ -84,4 +96,12 @@ func (s *grpcServer) ConsumeStream(
 			req.Offset++
 		}
 	}
+}
+
+// DIP principle using CommitLog interface.
+// allow our service to use any given log implementation
+// that satisfies our CommitLog interface.
+type CommitLog interface {
+	Append(*api.Record) (uint64, error)
+	Read(uint64) (*api.Record, error)
 }
