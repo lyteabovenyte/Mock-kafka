@@ -1,4 +1,4 @@
-CONFIG_PATH=${HOME}/Github/distributed_services_with_go/.certs/
+CONFIG_PATH=${HOME}/Github/distributed_services_with_go/.certs
 
 .PHONY: init
 init:
@@ -6,15 +6,22 @@ init:
 
 .PHONY: gencert
 gencert:
-	cfssl gencert \
-		-initca test/ca-csr.json | cfssljson -bare ca
+	cfssl/bin/cfssl gencert \
+		-initca test/ca-csr.json | cfssl/bin/cfssljson -bare ca
 
-	cfssl gencert \
+	cfssl/bin/cfssl gencert \
 		-ca=ca.pem \
 		-ca-key=ca-key.pem \
 		-config=test/ca-config.json \
 		-profile=server \
-		test/server-csr.json | cfssljson -bare server
+		test/server-csr.json | cfssl/bin/cfssljson -bare server
+
+	cfssl/bin/cfssl gencert \
+		-ca=ca.pem \
+		-ca-key=ca-key.pem \
+		-config=test/ca-config.json \
+		-profile=client \
+		test/client-csr.json | cfssl/bin/cfssljson -bare client
 	
 	mv *.pem *.csr ${CONFIG_PATH}
 
