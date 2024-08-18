@@ -22,3 +22,9 @@ go.work
 /.certs/
 .certs/
 .certs
+*.csr
+*.pem
+*.crt
+
+#
+cfssl/
