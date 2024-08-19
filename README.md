@@ -4,6 +4,7 @@
 - [x] commit log
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
+- [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
 
 
 
@@ -28,3 +29,8 @@
     - **Authorization**:
             - using *Casbin*: [Casbin](https://github.com/casbin/casbin) supports enforcing authorization based on various [control models](https://github.com/casbin/casbin#supported-models)—including ACLs. Plus Casbin is well adopted, tested, and extendable.
     - *v4.0.0* --> encrypting connection, mutual TLS authentication, ACL based authorization using **casbin**
+- Observability: *v4.0.0*
+    - using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap) for structured logs
+    - using [request context tags](github.com/grpc-ecosystem/go-grpc-middleware/tags) to set value for request tags in context.
+    it'll add a Tag object to the context that can be used by other middleware to add context about a request.
+    - using [OpenCensus](go.opencensus.io) for tracing
