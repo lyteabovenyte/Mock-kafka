@@ -26,3 +26,4 @@
     - **v3.0.2**(Authentication) has compeleted *mutual communication* between client and server + containing tests.
     - **Authorization**:
             - using *Casbin*: [Casbin](https://github.com/casbin/casbin) supports enforcing authorization based on various [control models](https://github.com/casbin/casbin#supported-models)—including ACLs. Plus Casbin is well adopted, tested, and extendable.
+    - *v4.0.0* --> encrypting connection, mutual TLS authentication, ACL based authorization using **casbin**
