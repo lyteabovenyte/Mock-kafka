@@ -2,7 +2,8 @@
 
 ###### features: 
 - [x] commit log
-- [ ] networking with gRPC
+- [x] networking with gRPC
+- [x] encrypting connection, mutual TLS authentication, ACL based authorization using **casbin** and peer-to-peer grpc connection
 
 
 
