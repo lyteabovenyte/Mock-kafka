@@ -3,10 +3,19 @@ package server
 import (
 	"context"
 
+	"time"
+
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
+	grpc_ctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	"go.opencensus.io/plugin/ocgrpc"
+	"go.opencensus.io/stats/view"
+	"go.opencensus.io/trace"
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
 	"google.golang.org/grpc"
-	grpc_middleware "google.golang.org/grpc-ecosystem/go-grpc-middleware"
-	grpc_auth "google.golang.org/grpc-ecosystem/go-grpc-middleware/auth"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/peer"
@@ -26,16 +35,43 @@ const (
 
 var _ api.LogServer = (*grpcServer)(nil)
 
-
 // NewGRPCServer provides the users a way to instantiate out service.
 func NewGRPCServer(config *Config, opts ...grpc.ServerOption) (*grpc.Server, error) {
 
+	// configure zap
+	logger := zap.L().Named("server") // naming the logger to differentiate between client and server logs
+	zapOpts := []grpc_zap.Option{
+		grpc_zap.WithDurationField(
+			func(duration time.Duration) zapcore.Field {
+				return zap.Int64(
+					"grpc.time_ns",
+					duration.Nanoseconds(),
+				)
+			},
+		),
+	}
+
+	// configuring how openCensus collects metrics and traces.
+	trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
+	err := view.Register(ocgrpc.DefaultServerViews...)
+	if err != nil {
+		return nil, err
+	}
+
 	opts = append(opts, grpc.StreamInterceptor(
 		grpc_middleware.ChainStreamServer(
+			grpc_zap.StreamServerInterceptor(logger, zapOpts...),
+			grpc_ctxtags.StreamServerInterceptor(),
 			grpc_auth.StreamServerInterceptor(authenticate),
 		)), grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
+		grpc_zap.UnaryServerInterceptor(logger, zapOpts...), // add logger to the context
+		grpc_ctxtags.UnaryServerInterceptor(),               // sets value for request tags
 		grpc_auth.UnaryServerInterceptor(authenticate),
-	)))
+	)),
+		// attach OpenCensus as the server's stat handler
+		// so that OpenCensus can record stats on the server's request handling
+		grpc.StatsHandler(&ocgrpc.ServerHandler{}),
+	)
 
 	gsrv := grpc.NewServer(opts...)
 	srv, err := newgrpcServer(config)
