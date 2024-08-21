@@ -5,7 +5,7 @@
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
 - [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
-
+- [ ] Server-to-Server Service Discovery
 
 
 ###### implementation:
@@ -34,3 +34,8 @@
     - using [request context tags](github.com/grpc-ecosystem/go-grpc-middleware/tags) to set value for request tags in context.
     it'll add a Tag object to the context that can be used by other middleware to add context about a request.
     - using [OpenCensus](go.opencensus.io) for tracing
+- Service-to-Service Discovery: 
+    - implementing *Membership* using [Serf](https://www.serf.io) on each service instance to discover other service instances.
+    - implementing *Replication* to duplicate each server's data
+    - after implementing our *replicator*, *membership*, *log* and *server* components, we'll implement and import an **Agent** type to run and sync these components on each instance. just like [Hachicorp Consul](https://github.com/hashicorp/consul).
+    - updated on *v6.0.0*
