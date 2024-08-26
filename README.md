@@ -5,7 +5,8 @@
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
 - [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
-- [ ] Server-to-Server Service Discovery
+- [x] Server-to-Server Service Discovery
+- [x] Coordination and Consesusn with **Raft** algorithm and bind the cluster with **Serf** for Discovery Integration between servers
 
 
 ###### implementation:
@@ -39,3 +40,10 @@
     - implementing *Replication* to duplicate each server's data
     - after implementing our *replicator*, *membership*, *log* and *server* components, we'll implement and import an **Agent** type to run and sync these components on each instance. just like [Hachicorp Consul](https://github.com/hashicorp/consul).
     - updated on *v6.0.0*
+- Coordinate the Service with Consesus using Raft Algorithm:
+    - using my own log library as Raft's log store and satisfy the LogStore interface that Raft requires.
+    - using [Bolt](https://github.com/boltdb/bolt) which is an embedded and persisted key-value database for Go, as my stable store in Raft to store server's current Term and important metadata like the candidates the server voted for.
+    - implemented Raft snapshots to recover and restore data efficiently, when necessary, like if our server’s EC2 instance failed and an autoscaling group(terraform terminology 🥸) brought up another instance for the Raft server. Rather than streaming all the data from the Raft leader, the new server would restore from the snapshot (which you could store in S3 or a similar storage service) and then get the latest changes from the leader.
+    - again, using my own Log library as Raft's finite-state-machine(*FSM*), to replicate the logs across server's in the cluster.
+    - *Discovery integration* and binding *Serf* and *Raft* to implement service discovery on Raft cluster by implementing *Join* and *Leave* methods to satisfy Serf's interface hence having a Membership in the cluster to be discovered.
+    - 
