@@ -5,7 +5,7 @@
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
 - [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
-- [x] Server-to-Server Service Discovery
+- [x] Server-to-Server Service Discovery using [Serf](https://www.serf.io)
 - [x] Coordination and Consesusn with **Raft** algorithm and bind the cluster with **Serf** for Discovery Integration between servers
 
 
