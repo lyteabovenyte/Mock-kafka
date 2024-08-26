@@ -19,16 +19,16 @@
     - using [status](https://godoc.org/google.golang.org/grpc/status), [codes](https://godoc.org/google.golang.org/grpc/codes) and [errdetails](https://godoc.org/google.golang.org/genproto/googleapis/rpc/errdetials) packages to customize error messages between client and server.
     - Dependency Inversion using Interfaces. (DIP principle). --> [wanna know more?](https://medium.com/@sumit-s/the-dependency-inversion-principle-dip-in-golang-fb0bdc503972)
 - Security: *v3.0.0*
-    - security in distributed services can be broken down into three steps:
+    - my approach to secure the system is based on three approach:
         - encrypt data in-flight to protect against man-in-the-middle attacks
         - authenticate to identify clients
         - authorize to determine the permission of the identified clients
-    - the adoptiveness of mutual authentication in distributed services. interested? [learn how cloudflare adopt it](https://blog.cloudflare.com/how-to-build-your-own-public-key-infrastructure).
+    - base on the adoptiveness of mutual authentication in distributed services, I'm gonna try my best to adopt it too 🤠. interested? [learn how cloudflare adopt it](https://blog.cloudflare.com/how-to-build-your-own-public-key-infrastructure).
     - building access control list-based authorization & differentiate between authentication and authorization in case of varying levels of access and permissions.
     - using cloudflare's open source Certificate Authority (CA) called [CSFFL](https://blog.cloudflare.com/introducing-cfssl) for signing, verifying and bundling TLS certificates.
     - **v3.0.2**(Authentication) has compeleted *mutual communication* between client and server + containing tests.
     - **Authorization**:
-            - using *Casbin*: [Casbin](https://github.com/casbin/casbin) supports enforcing authorization based on various [control models](https://github.com/casbin/casbin#supported-models)—including ACLs. Plus Casbin is well adopted, tested, and extendable.
+            - using *Casbin*: [Casbin](https://github.com/casbin/casbin) supports enforcing authorization based on various [control models](https://github.com/casbin/casbin#supported-models)—including ACLs. Plus Casbin extendable and i's exciting to explore it.
     - *v4.0.0* --> encrypting connection, mutual TLS authentication, ACL based authorization using **casbin**
 - Observability: *v4.0.0*
     - using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap) for structured logs
@@ -37,7 +37,7 @@
     - using [OpenCensus](go.opencensus.io) for tracing
 - Service-to-Service Discovery: 
     - implementing *Membership* using [Serf](https://www.serf.io) on each service instance to discover other service instances.
-    - implementing *Replication* to duplicate each server's data
+    - implementing *Replication* to duplicate each server's data - already thinking about Consensus -_-.
     - after implementing our *replicator*, *membership*, *log* and *server* components, we'll implement and import an **Agent** type to run and sync these components on each instance. just like [Hachicorp Consul](https://github.com/hashicorp/consul).
     - updated on *v6.0.0*
 - Coordinate the Service with Consesus using Raft Algorithm:
