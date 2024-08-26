@@ -5,7 +5,7 @@ import (
 	"context"
 	"sync"
 
-	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	api "github.com/lyteabovenyte/mock_distributed_services/api/v1"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )

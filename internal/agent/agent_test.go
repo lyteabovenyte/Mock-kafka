@@ -9,9 +9,9 @@ import (
 	"testing"
 	"time"
 
-	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
-	"github.com/lyteabovenyte/distributed_services_with_go/internal/agent"
-	"github.com/lyteabovenyte/distributed_services_with_go/internal/config"
+	api "github.com/lyteabovenyte/mock_distributed_services/api/v1"
+	"github.com/lyteabovenyte/mock_distributed_services/internal/agent"
+	"github.com/lyteabovenyte/mock_distributed_services/internal/config"
 	"github.com/stretchr/testify/require"
 	"github.com/travisjeffery/go-dynaport"
 	"google.golang.org/grpc"

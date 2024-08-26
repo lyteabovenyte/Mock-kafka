@@ -2,7 +2,7 @@ package main
 
 import(
 	"log"
-	"github.com/lyteabovenyte/distributed_services_with_go/internal/server"
+	"github.com/lyteabovenyte/mock_distributed_services/internal/server"
 )
 
 func main() {

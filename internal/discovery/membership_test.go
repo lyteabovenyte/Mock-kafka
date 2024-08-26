@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/hashicorp/serf/serf"
-	. "github.com/lyteabovenyte/distributed_services_with_go/internal/discovery"
+	. "github.com/lyteabovenyte/mock_distributed_services/internal/discovery"
 	"github.com/stretchr/testify/require"
 	"github.com/travisjeffery/go-dynaport"
 )

@@ -1,4 +1,4 @@
-module github.com/lyteabovenyte/distributed_services_with_go
+module github.com/lyteabovenyte/mock_distributed_services
 
 go 1.22.3
 

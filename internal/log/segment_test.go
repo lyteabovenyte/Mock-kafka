@@ -6,7 +6,7 @@ import (
 	"os"
 	"testing"
 
-	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	api "github.com/lyteabovenyte/mock_distributed_services/api/v1"
 	"github.com/stretchr/testify/require"
 )
 

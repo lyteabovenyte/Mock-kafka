@@ -15,7 +15,7 @@ import (
 
 	"github.com/hashicorp/raft"
 	raftboltdb "github.com/hashicorp/raft-boltdb"
-	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	api "github.com/lyteabovenyte/mock_distributed_services/api/v1"
 	"google.golang.org/protobuf/proto"
 )
 

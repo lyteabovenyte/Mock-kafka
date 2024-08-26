@@ -11,7 +11,7 @@ import (
 	"strings"
 	"sync"
 
-	api "github.com/lyteabovenyte/distributed_services_with_go/api/v1"
+	api "github.com/lyteabovenyte/mock_distributed_services/api/v1"
 )
 
 // Log consists of a list of segments and a pointer to the active segment
