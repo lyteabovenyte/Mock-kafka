@@ -54,7 +54,9 @@ func TestAgent(t *testing.T) {
 		}
 
 		agent, err := agent.New(agent.Config{
-			NodeName:        fmt.Sprintf("%d", i),
+			NodeName: fmt.Sprintf("%d", i),
+			// bootstrap Raft cluster
+			Bootstrap:       i == 0,
 			StartJoinAddrs:  startJoinAddrs,
 			BindAddr:        bindAddr,
 			RPCPort:         rpcAddr,
@@ -109,6 +111,18 @@ func TestAgent(t *testing.T) {
 	)
 	require.NoError(t, err)
 	require.Equal(t, consumeResponse.Record.Value, []byte("Amir"))
+
+	consumeResponse, err = leaderClient.Consume(
+		context.Background(),
+		&api.ConsumeRequest{
+			Offset: produceResponse.Offset + 1,
+		},
+	)
+	require.Nil(t, consumeResponse)
+	require.Error(t, err)
+	got := grpc.Code(err)
+	want := grpc.Code(api.ErrOffsetOutOfRange{}.GRPCStatus().Err())
+	require.Equal(t, got, want)
 }
 
 // client helper, that sets up a client for the service.
