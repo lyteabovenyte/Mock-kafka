@@ -46,4 +46,5 @@
     - implemented Raft snapshots to recover and restore data efficiently, when necessary, like if our server’s EC2 instance failed and an autoscaling group(terraform terminology 🥸) brought up another instance for the Raft server. Rather than streaming all the data from the Raft leader, the new server would restore from the snapshot (which you could store in S3 or a similar storage service) and then get the latest changes from the leader.
     - again, using my own Log library as Raft's finite-state-machine(*FSM*), to replicate the logs across server's in the cluster.
     - *Discovery integration* and binding *Serf* and *Raft* to implement service discovery on Raft cluster by implementing *Join* and *Leave* methods to satisfy Serf's interface hence having a Membership in the cluster to be discovered.
-    - 
+    - **Multiplexing on our Service to run multiple services on one port**
+        - we identify the Raft connections from gRPC connections by making the Raft connection write a byte to identify them by, and multiplexing connection to different listeners to handle, and configured our agents to both manage Raft cluster connections and gRPC connection on our servers on a single port
