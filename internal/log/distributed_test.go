@@ -64,6 +64,13 @@ func TestMultipleNodes(t *testing.T) {
 		logs = append(logs, l)
 	}
 
+	servers, err := logs[0].GetServers()
+	require.NoError(t, err)
+	require.Equal(t, len(servers), 3)
+	require.True(t, servers[0].IsLeader)
+	require.False(t, servers[1].IsLeader)
+	require.False(t, servers[2].IsLeader)
+
 	records := []*api.Record{
 		{Value: []byte("first")},
 		{Value: []byte("second")},
