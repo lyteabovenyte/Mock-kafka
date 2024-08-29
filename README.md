@@ -63,7 +63,7 @@
 
 
 ###### UpComming features that I have in mind: - upgrading...
-- [ ] orchastration and deployment with [kubernetes](https://kuberenetes.io) + configuration with [Helm](https://helm.sh) and tune k8s controllers to handle our cluster as we desire
-- [ ] provisioning resources on AWS using Infrastructure as Code principles using [Terraform](https://www.terraform.io)
+- [ ] orchestration and deployment with [kubernetes](https://kuberenetes.io) + configuring with [Helm](https://helm.sh) and tune k8s controllers to handle our cluster as we desire
+- [ ] provisioning resources on AWS by Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
-- [ ] machine learning models to consume the logs on our cluster and anticipate the issues in our service
+- [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
