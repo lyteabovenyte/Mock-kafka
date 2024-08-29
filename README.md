@@ -1,8 +1,7 @@
-##### implementing distributed services with **Golang**
+### implementing distributed services with **Golang**
 
-##### set of implemented features: 
 ###### UpComming features are listed at the bottom of the page.
-
+##### set of implemented features: 
 - [x] commit log
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
@@ -64,7 +63,7 @@
 
 
 ###### UpComming features that I have in mind: - upgrading...
-- [ ] orchastration and deployment with [kubernetes](https://kuberenetes.io) + configuration with [Helm](https://helm.sh)and tune k8s controllers to handle our cluster as we desire
-- [ ] provisioning resources on AWS using Infrastructure as Code principle using [Terraform](https://www.terraform.io)
+- [ ] orchastration and deployment with [kubernetes](https://kuberenetes.io) + configuration with [Helm](https://helm.sh) and tune k8s controllers to handle our cluster as we desire
+- [ ] provisioning resources on AWS using Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
 - [ ] machine learning models to consume the logs on our cluster and anticipate the issues in our service
