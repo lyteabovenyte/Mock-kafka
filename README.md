@@ -1,6 +1,8 @@
 ##### implementing distributed services with **Golang**
 
-###### features: 
+##### set of implemented features: 
+###### UpComming features are listed at the bottom of the page.
+
 - [x] commit log
 - [x] networking with gRPC
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
@@ -48,3 +50,21 @@
     - *Discovery integration* and binding *Serf* and *Raft* to implement service discovery on Raft cluster by implementing *Join* and *Leave* methods to satisfy Serf's interface hence having a Membership in the cluster to be discovered.
     - **Multiplexing on our Service to run multiple services on one port**
         - we identify the Raft connections from gRPC connections by making the Raft connection write a byte to identify them by, and multiplexing connection to different listeners to handle, and configured our agents to both manage Raft cluster connections and gRPC connection on our servers on a single port
+- Client-Side LoadBalancing: *v7.0.0*
+    - three major features our client needs at this point:
+        - discover servers in the cluster
+        - direct append calls to leaders and consume calls to followers
+        - balance consume calls across followers
+    - we will start by writing our own *resolver* and *picker* usign gRPC builder pattern. gRPC separates the server discovery, loadbalancing and client request and response handling. in our gRPC:
+      - [resolver](https://google.golang.org/grpc/resolver)s discovers the servers and whether the server is the leader or not
+      - *picker*s manage directing produce calls to the leader and balancing consume calls across the followers
+
+
+
+
+
+###### UpComming features that I have in mind: - upgrading...
+- [ ] orchastration and deployment with [kubernetes](https://kuberenetes.io) + configuration with [Helm](https://helm.sh)and tune k8s controllers to handle our cluster as we desire
+- [ ] provisioning resources on AWS using Infrastructure as Code principle using [Terraform](https://www.terraform.io)
+- [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
+- [ ] machine learning models to consume the logs on our cluster and anticipate the issues in our service
