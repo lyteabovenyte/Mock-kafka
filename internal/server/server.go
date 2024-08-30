@@ -23,8 +23,9 @@ import (
 )
 
 type Config struct {
-	CommitLog  CommitLog
-	Authorizer Authorizer
+	CommitLog   CommitLog
+	Authorizer  Authorizer
+	GetServerer GetServerer
 }
 
 const (
@@ -211,3 +212,21 @@ func subject(ctx context.Context) string {
 }
 
 type subjectContextKey struct{}
+
+// implementing the endpoints on the server
+// to call DistributedLog.GetServers()
+
+func (s *grpcServer) GetServers(
+	ctx context.Context,
+	req *api.GetServersRequest,
+) (*api.GetServerResponse, error) {
+	servers, err := s.GetServerer.GetServers()
+	if err != nil {
+		return nil, err
+	}
+	return &api.GetServerResponse{Servers: servers}, nil
+}
+
+type GetServerer interface {
+	GetServers() ([]*api.Server, error)
+}
