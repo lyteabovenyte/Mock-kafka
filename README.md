@@ -8,6 +8,7 @@
 - [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
 - [x] Server-to-Server Service Discovery using [Serf](https://www.serf.io)
 - [x] Coordination and Consesusn with **Raft** algorithm and bind the cluster with **Serf** for Discovery Integration between servers
+- [x] Client-side LoadBalancing with gRPC and End-to-End Discovery Integration 
 
 
 ###### implementation:
@@ -57,6 +58,7 @@
     - we will start by writing our own *resolver* and *picker* usign gRPC builder pattern. gRPC separates the server discovery, loadbalancing and client request and response handling. in our gRPC:
       - [resolver](https://google.golang.org/grpc/resolver)s discovers the servers and whether the server is the leader or not
       - *picker*s manage directing produce calls to the leader and balancing consume calls across the followers
+    - Implementing End-to-End discovery and Balancing(client-side) with our agent.
 
 
 
