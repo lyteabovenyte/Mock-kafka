@@ -97,6 +97,12 @@ func TestMultipleNodes(t *testing.T) {
 	err = logs[0].Leave("1")
 	require.NoError(t, err)
 
+	servers, err = logs[0].GetServers()
+	require.NoError(t, err)
+	require.Equal(t, len(servers), 2)
+	require.True(t, servers[0].IsLeader)
+	require.False(t, servers[1].IsLeader)
+
 	time.Sleep(50 * time.Millisecond)
 
 	off, err := logs[0].Append(&api.Record{

@@ -505,6 +505,8 @@ func (l *DistributedLog) Close() error {
 }
 
 // GetServers exposes Raft's server data.
+// it converts the data from Raft's raft.Server type
+// to our *api.Server type for our API to respond with
 func (l *DistributedLog) GetServers() ([]*api.Server, error) {
 	future := l.raft.GetConfiguration()
 	if err := future.Error(); err != nil {
