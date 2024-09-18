@@ -13,7 +13,9 @@
 
 ###### implementation:
 - commit log:
-    - using store and index files approach for each log segment
+    - *hash-table* index approach for in-memory data structure using *write-ahead-log* and *LSM Tree engine* by fragmenting index, store and segments
+    - implementing segment and stores in binary format that fits best for logs. it encodes the length of a string in bytes, followed by the raw strings (page 74 of designing data-intensive application for more info)
+    - using store and index files approach for each log segment by in-memory data-structure for faster seeks. (already thinking about merging the old segments)
     - using [go-mmap](https://pkg.go.dev/github.com/go-mmap/mmap) library to memory map index file for performance issues.
     - tests for each segment and it's store and index files
 - gRPC Services: *v2.0.0*
@@ -69,3 +71,9 @@
 - [ ] provisioning resources on AWS by Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
 - [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
+
+###### Notes while researching on design patterns and storage engines that could be interesting to implement.
+- [ ] merging segments together for key-value stores to keep the latest value for each key and truncate out-dated segments( comaction and merging, page 73 of designing data-intensive applications)
+- [ ] *tombstone* value for deleted logs from segment (page 74 of designing data-intensive application)
+- [ ] as our logs are fixed-length size of records, we could use *binary-search* to find the right offset on the disk. in this approach we don't need any index file to store our log's offsets.
+- [ ] 
