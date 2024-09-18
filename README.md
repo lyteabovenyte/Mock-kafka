@@ -20,7 +20,7 @@
     - tests for each segment and it's store and index files
 - gRPC Services: *v2.0.0*
     - using bidirectional streaming APIs on the client and server side to stream the content between them.
-    - using [status](https://godoc.org/google.golang.org/grpc/status), [codes](https://godoc.org/google.golang.org/grpc/codes) and [errdetails](https://godoc.org/google.golang.org/genproto/googleapis/rpc/errdetials) packages to customize error messages between client and server.
+    - using [status](https://godoc.org/google.golang.org/grpc/status), [codes](https://godoc.org/google.golang.org/grpc/codes) and [errdetails](https://godoc.org/google.golang.org/genproto/googleapis/rpc/errdetails) packages to customize error messages between client and server.
     - Dependency Inversion using Interfaces. (DIP principle). --> [wanna know more?](https://medium.com/@sumit-s/the-dependency-inversion-principle-dip-in-golang-fb0bdc503972)
 - Security: *v3.0.0*
     - my approach to secure the system is based on three approach:
