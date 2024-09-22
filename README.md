@@ -1,8 +1,8 @@
 - [implementing distributed services with **Golang**](#implementing-distributed-services-with-golang)
     - [set of implemented features:](#set-of-implemented-features)
     - [implementation:](#implementation)
-    - [UpComming features that I have in mind: -updating...](#upcomming-features-that-i-have-in-mind--updating)
-    - [Notes while researching on design patterns and storage engines with reference that could be interesting to implement.](#notes-while-researching-on-design-patterns-and-storage-engines-with-reference-that-could-be-interesting-to-implement)
+    - [UpComming features -updating...](#upcomming-features--updating)
+    - [Notes](#notes)
 
 ### implementing distributed services with **Golang**
 
@@ -71,12 +71,12 @@
 
 
 
-##### UpComming features that I have in mind: -updating...
+##### UpComming features -updating...
 - [ ] orchestration and deployment with [kubernetes](https://kuberenetes.io) + configuring with [Helm](https://helm.sh) and tune k8s controllers to handle our cluster as we desire
 - [ ] provisioning resources on AWS by Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
 - [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
 
-##### Notes while researching on design patterns and storage engines with reference that could be interesting to implement.
+##### Notes
 - [ ] merging segments together for key-value stores to keep the latest value for each key and truncate out-dated segments( compaction and merging, page 73 of designing data-intensive applications)
 - [ ] as our logs are fixed-length size of records, we could use *binary-search* to find the right offset on the disk. in this approach we don't need any index file to store our log's offsets and gain performance
