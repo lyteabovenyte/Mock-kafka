@@ -73,7 +73,5 @@
 - [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
 
 ###### Notes while researching on design patterns and storage engines that could be interesting to implement.
-- [ ] merging segments together for key-value stores to keep the latest value for each key and truncate out-dated segments( comaction and merging, page 73 of designing data-intensive applications)
-- [ ] *tombstone* value for deleted logs from segment (page 74 of designing data-intensive application)
-- [ ] as our logs are fixed-length size of records, we could use *binary-search* to find the right offset on the disk. in this approach we don't need any index file to store our log's offsets.
-- [ ] 
+- [ ] merging segments together for key-value stores to keep the latest value for each key and truncate out-dated segments( compaction and merging, page 73 of designing data-intensive applications)
+- [ ] as our logs are fixed-length size of records, we could use *binary-search* to find the right offset on the disk. in this approach we don't need any index file to store our log's offsets and gain performance
