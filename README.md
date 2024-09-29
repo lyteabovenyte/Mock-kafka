@@ -74,6 +74,7 @@
 
 ##### UpComming features -updating...
 - [ ] orchestration and deployment with [kubernetes](https://kuberenetes.io) + configuring with [Helm](https://helm.sh) and tune k8s controllers to handle our cluster as we desire
+- [ ] using [Kafka](https://kafka.apache.org) to eliminate all the endpoints of the API for writing and just append those request to the log (append-only log) and let the system consume that log **to escape dual-write issue**. In this world view, the log is the authoritative source of what has happened, and consumers of the log (other services which needs to know what happend to the source of truth) consume that information in various different ways.
 - [ ] provisioning resources on AWS by Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
 - [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
