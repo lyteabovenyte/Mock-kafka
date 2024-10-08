@@ -1,10 +1,10 @@
-- [implementing distributed services with **Golang**](#implementing-distributed-services-with-golang)
+- [implementing **Kafka** with **Golang**](#implementing-kafka-with-golang)
     - [set of implemented features:](#set-of-implemented-features)
     - [implementation:](#implementation)
     - [UpComming features -updating...](#upcomming-features--updating)
     - [Notes](#notes)
 
-### implementing distributed services with **Golang**
+### implementing **Kafka** with **Golang**
 
 ##### set of implemented features: 
 - [x] commit log
@@ -12,15 +12,15 @@
 - [x] encrypting connection, mutual TLS authentication, ACL based authorization using [Casbin](https://github.com/casbin/casbin) and peer-to-peer grpc connection
 - [x] Observability using [zap](github.com/grpc-ecosystem/go-grpc-middleware/logging/zap), [ctxtags](github.com/grpc-ecosystem/go-grpc-middleware/tags) and [OpenCensus](go.opencensus.io) for tracing. all in gRPC interceptors ⚭
 - [x] Server-to-Server Service Discovery using [Serf](https://www.serf.io)
-- [x] Coordination and Consesusn with **Raft** algorithm and bind the cluster with **Serf** for Discovery Integration between servers
+- [x] Coordination and Consesusn with **Raft** algorithm and bind the cluster with **Serf** for Discovery Integration between servers (trying to implement [KRaft](https://developer.confluent.io/learn/kraft/))
 - [x] Client-side LoadBalancing with gRPC and End-to-End Discovery Integration 
 
 
 ##### implementation:
 - commit log:
     - *hash-table* index approach for in-memory data structure using *write-ahead-log* and *LSM Tree engine* by fragmenting index, store and segments
-    - implementing segment and stores in binary format that fits best for logs. it encodes the length of a string in bytes, followed by the raw strings (page 74 of designing data-intensive application for more info)
-    - using store and index files approach for each log segment by in-memory data-structure for faster seeks. (already thinking about merging the old segments)
+    - storing log segments and stores in bytes for ease of serializing and deserializing in network and gRPC protocols
+    - using store and index files approach for each log segment by in-memory data-structure for faster seeks. (already thinking about merging the old segments using merge-sort algorithm)
     - using [go-mmap](https://pkg.go.dev/github.com/go-mmap/mmap) library to memory map index file for performance issues.
     - tests for each segment and it's store and index files
 - gRPC Services: *v2.0.0*
@@ -77,7 +77,7 @@
 - [ ] using [Kafka](https://kafka.apache.org) to eliminate all the endpoints of the API for writing and just append those request to the log (append-only log) and let the system consume that log **to escape dual-write issue**. In this world view, the log is the authoritative source of what has happened, and consumers of the log (other services which needs to know what happend to the source of truth) consume that information in various different ways.
 - [ ] provisioning resources on AWS by Infrastructure as Code principles using [Terraform](https://www.terraform.io)
 - [ ] CI/CD using [Jenkins](https://www.jenkins.io) pipeline cluster-wide + github webhooks to automate deployment
-- [ ] (final GOAL👾) machine learning models as the core functionality and agent to embrace and wield every aspect of the project
+- [ ] machine learning models as the core functionality and agent to embrace and wield every aspect of the project
 
 ##### Notes
 - [ ] merging segments together for key-value stores to keep the latest value for each key and truncate out-dated segments( compaction and merging, page 73 of designing data-intensive applications)
